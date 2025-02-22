@@ -12,6 +12,7 @@ import useLoginModal from "@/hooks/useLoginModal"
 import axios from "axios"
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert"
 import { AlertCircle } from "lucide-react"
+import { signIn } from "next-auth/react"
 
 export default function RegisterModal() {
   const [step, setStep] = useState(1)
@@ -138,9 +139,12 @@ function RegisterStep2({ data }: { data: { name: string, email: string } }) {
   async function onSubmit(values: z.infer<typeof registerStep2Schema>) {
     try {
       const { data: response } = await axios.post("/api/auth/register?step=2", { ...values, ...data })
-      console.log(data);
 
       if (response.success) {
+        signIn("credentials", {
+          email: data.email,
+          password: values.password,
+        })
         registerModal.onClose()
       }
     } catch (error: any) {

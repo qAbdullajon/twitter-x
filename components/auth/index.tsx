@@ -9,6 +9,7 @@ import useRegisterModal from "@/hooks/useRegisterModal";
 import useLoginModal from "@/hooks/useLoginModal";
 import RegisterModal from "../modals/register-modal";
 import LoginModal from "../modals/login-modal";
+import { signIn, useSession } from "next-auth/react";
 
 const Auth = () => {
   const registerModal = useRegisterModal()
@@ -39,6 +40,7 @@ const Auth = () => {
             <h2 className="text-3xl font-bold pb-4">Join today.</h2>
             <div className="flex flex-col space-y-2">
               <Button
+                onClick={() => signIn("google")}
                 fullwidth
                 secondary
                 label={
@@ -48,6 +50,7 @@ const Auth = () => {
                   </div>
                 } />
               <Button
+                onClick={() => signIn("github")}
                 fullwidth
                 secondary
                 label={
