@@ -7,10 +7,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import Button from '../ui/button'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import useRegisterModal from '@/hooks/useRegisterModal'
+import axios from 'axios'
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert'
+import { AlertCircle } from 'lucide-react'
 
 export default function LoginModal() {
+  const [error, setError] = useState("")
   const loginModal = useLoginModal()
   const registerModal = useRegisterModal()
 
@@ -27,13 +31,33 @@ export default function LoginModal() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof loginSchema>) {
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof loginSchema>) {
+    try {
+      const { data } = await axios.post("/api/auth/login", values)
+      if (data.success) {
+        loginModal.onClose()
+      }
+    } catch (error: any) {
+      if (error.response.data.message) {
+        setError(error.response.data.message)
+      } else {
+        setError("Something went wrong")
+      }
+    }
   }
 
   const bodyContent = (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 px-12">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 px-4 md:px-12">
+        {error && (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>
+              {error}
+            </AlertDescription>
+          </Alert>
+        )}
         <FormField
           control={form.control}
           name="email"

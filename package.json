@@ -13,9 +13,12 @@
     "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.2",
+    "axios": "^1.7.9",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.475.0",
+    "mongoose": "^8.10.1",
     "next": "14.2.24",
     "next-themes": "^0.4.4",
     "react": "^18",
@@ -28,6 +31,7 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

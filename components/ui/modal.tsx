@@ -1,5 +1,5 @@
 import { ReactElement } from "react"
-import { Dialog, DialogContent, DialogHeader } from "./dialog"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./dialog"
 import { X } from "lucide-react"
 
 interface MoadlProps {
@@ -31,6 +31,8 @@ export default function Modal({
           )}
         </div>
         <DialogHeader>
+          <DialogTitle className="hidden">Title</DialogTitle>
+          <DialogDescription className="hidden"></DialogDescription>
           <div className="pt-4">{body}</div>
           {footer && <div className="pt-4">{footer}</div>}
         </DialogHeader>
