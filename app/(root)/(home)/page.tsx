@@ -1,10 +1,16 @@
-import Auth from "@/components/auth"
+import Form from "@/components/shared/form"
+import Header from "@/components/shared/header"
+import { authOptions } from "@/lib/auth-options"
+import { getServerSession } from "next-auth"
 
-const Home = () => {
-  const auth = false
+const Home = async () => {
+  const session: any = await getServerSession(authOptions)
 
   return (
-    <div>Home</div>
+    <>
+      <Header label="Home" isBack />
+      <Form placeholder="What's happening?" user={JSON.parse(JSON.stringify(session?.currentUser))} />
+    </>
   )
 }
 
